@@ -5,7 +5,7 @@ const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 const Render = Matter.Render;
 const Constraint=Matter.Constraint;
-var treeObj, stoneObj,groundObject, launcherObject;
+var treeObj, stoneObj,groundObject, launcherO;
 var mango1;
 var world,boy,boyI;
 
@@ -27,7 +27,7 @@ function setup() {
 	treeObj=new tree(1050,580);
 	groundObject=new ground(width/2,600,width,20);
 	stone = new Stone(240,420,30);
-	launcher = new Launcher(stone.body,{x:250, y:110})
+	launcherO = new Launcher(stone.body,{x:250, y:410});
 	
 	Engine.run(engine);
 
@@ -53,6 +53,7 @@ function draw() {
   stone.display();
 
   groundObject.display();
+  launcherO.display();
 
   detectollision(stone,mango1);
   detectollision(stone,mango2);
@@ -67,17 +68,18 @@ function mouseDragged(){
         Matter.Body.setPosition(stone.body, {x: mouseX , y: mouseY});
     }
 
-	function mouseReleased(){
-		launcher.fly();
-	}	
+function mouseReleased(){
+		launcherO.fly();
+		console.log("Release");
+}	
 
-	function detectollision(){
-		mangoBodyPosition = 1mango.body.position
-		stoneBodyPosition = 1stone.body.position
+	function detectollision(lstone,lmango){
+		mangoBodyPosition = lmango.body.position
+		stoneBodyPosition = lstone.body.position
 	
 		var distance = dist(stoneBodyPosition.x,stoneBodyPosition.y,mangoBodyPosition.x,mangoBodyPosition.y)
-		if(distance<=1mango.r+1stone.r){
-			Matter.Body.setStatic(1mango.body,false);
+		if(distance<=lmango.r+lstone.r){
+			Matter.Body.setStatic(lmango.body,false);
 		}
 	}
 
